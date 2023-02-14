@@ -9,8 +9,11 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Hello ! ✅</h1>
 
+    {% for category in categories %}
+        <a href="{{ path('category_show', {'id':category.id}) }}">{{ category.name }}</a>
+    {% endfor %}
     This friendly message is coming from:
     <ul>
         <li>Your controller at <code><a href="{{ 'C:/laragon/www/e-commerce/src/Controller/AppController.php'|file_link(0) }}">src/Controller/AppController.php</a></code></li>
