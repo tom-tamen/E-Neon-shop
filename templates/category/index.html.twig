@@ -26,10 +26,12 @@
 
 
     {%for product in products%}
-        <h2>{{ product.name }}</h2>
-        <img src="{{ asset('uploads/products/'~product.pictureUrl) }}" alt="{{ product.name }}" style="width: 128px">
-        <p>{{ product.price }} €</p>
-        <p>---------------------------</p>
+        <a href="{{ path('product_show', {id:product.id}) }}">
+            <h2>{{ product.name }}</h2>
+            <img src="{{ asset('uploads/products/'~product.pictureUrl) }}" alt="{{ product.name }}" style="width: 128px">
+            <p>{{ product.price }} €</p>
+        </a>
+        <hr>
 
     {% endfor %}
 </div>
