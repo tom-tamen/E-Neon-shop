@@ -11,6 +11,9 @@
 <div class="example-wrapper">
     <h1>Your cart</h1>
 
+    {% if cart is empty %}
+        <p>Your cart is empty</p>
+    {% endif %}
     {% for item in cart %}
         <h2>{{ item.product.name }} x {{ item.quantity }}</h2>
         <a href="{{ path('cart_remove_all', {id: item.product.id}) }}">remove</a>

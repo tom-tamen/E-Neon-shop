@@ -40,12 +40,21 @@ class CartController extends AbstractController
 
     #[Route('/cart/add/{id}', name: 'cart_add')]
     #[Route('/cart/add-x/{id}/{x}', name: 'cart_add_x')]
-    public function add($id, Request $request, $x = null){
+    public function add($id, Request $request, ProductRepository $productRepository, $x = null){
 
         $session = $request->getSession();
         $cart = $session->get('cart', []);
 
-        if (!empty($cart[$id])) {
+        $product = $productRepository->find($id);
+
+        if (!empty($cart[$id]) || !$product) {
+
+            if($product->getStock() < $cart[$id] + $x){
+                $cart[$id] = $product->getStock();
+                $session->set('cart', $cart);
+                return $this->redirectToRoute('product_show', ['id' => $id, 'error' => 'stock']);
+            }
+
             if($x === null){
                 $cart[$id]++;
             }else{
