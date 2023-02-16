@@ -16,6 +16,7 @@
         <p>{{ product.description }}</p>
     </div>
     <p>{{ product.price }} €</p>
+    <a href="{{ path('cart_add', {'id': product.id}) }}">Add to cart</a>
     <hr>
     <h3>This might interest you :</h3>
     {% for otherProduct in product.category.products %}
@@ -24,8 +25,9 @@
                 <h4>{{ otherProduct.name }}</h4>
                 <img src="{{ asset('uploads/products/'~otherProduct.pictureUrl) }}" alt="{{ otherProduct.name }}" style="width: 128px">
                 <p>{{ otherProduct.price }} €</p>
-                <hr>
             </a>
+                <a href="{{ path('cart_add', {'id': otherProduct.id}) }}">Add to cart</a>
+                <hr>
         {% endif %}
 
 
