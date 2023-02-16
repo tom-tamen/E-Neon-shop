@@ -3,18 +3,54 @@
 {% block title %}Hello OrderController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/laragon/www/e-commerce/src/Controller/OrderController.php'|file_link(0) }}">src/Controller/OrderController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/laragon/www/e-commerce/templates/order/index.html.twig'|file_link(0) }}">templates/order/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        th, td {
+            padding: 5px;
+        }
+
+        img{
+            width: 64px;
+        }
+    </style>
+
+    <h1>Order</h1>
+
+    <table>
+        {% for order in user.orders %}
+        <thead>
+            <tr>
+                <th colspan="2">Order : {{ order.date |date('d-m-Y') }}</th>
+            </tr>
+        </thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+        </tr>
+            {% for orderProduct in order.orderProducts %}
+                <tr>
+                    <td>
+                        {{ orderProduct.product.name }}
+                        <img src="{{ asset('./uploads/products/'~orderProduct.product.pictureUrl) }}" alt="{{ orderProduct.product.name }}">
+                    </td>
+                    <td>{{ orderProduct.quantity }}</td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </table>
+{#        {% for order in user.orders %}#}
+{#        {{ order.date |date('d-m-Y') }}#}
+{#            {% for orderProduct in order.orderProducts %}#}
+{#                {{ orderProduct.product.name }}#}
+{#                    x#}
+{#                {{ orderProduct.quantity }}#}
+{#                <hr>#}
+{#            {% endfor %}#}
+{#        {% endfor %}#}
 {% endblock %}

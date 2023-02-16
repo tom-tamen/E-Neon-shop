@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Order;
+use App\Entity\OrderProduct;
 use App\Entity\Product;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -30,6 +32,7 @@ class AppFixtures extends Fixture
             $manager->persist($user);
         }
 
+        $manager->flush();
         for ($i = 0; $i < 10; $i++) {
             $category = new Category();
             $category->setName('Category ' . $i);
@@ -49,5 +52,24 @@ class AppFixtures extends Fixture
             $manager->persist($category);
         }
         $manager->flush();
+
+        $product = $manager->getRepository(Product::class)->findAll();
+        $users = $manager->getRepository(User::class)->findAll();
+
+        $order = new Order();
+        $order->setBuyer($users[0]);
+        $order->setDate(new \DateTime());
+
+        for ($i = 0; $i < 10; $i++) {
+            $orderProduct = new OrderProduct();
+            $orderProduct->setOrderReference($order);
+            $orderProduct->setQuantity(rand(1, 10));
+            $orderProduct->setProduct($product[rand(0, count($product)-1)]);
+            $manager->persist($orderProduct);
+        }
+        $manager->persist($order);
+        $manager->flush();
+
+
     }
 }
