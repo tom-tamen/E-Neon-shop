@@ -16,7 +16,17 @@
     {% endif %}
     {% for item in cart %}
         <h2>{{ item.product.name }} x {{ item.quantity }}</h2>
-        <a href="{{ path('cart_remove_all', {id: item.product.id}) }}">remove</a>
+
+        {% if item.quantity > 1 %}
+            <input type="number" class="remove-input" data-input-id="{{ item.product.id }}">
+            <button class="btn-remove" data-btn-id="{{ item.product.id }}">remove</button>
+            <a href="{{ path('cart_remove_x', {id: item.product.id}) }}" style="visibility: hidden" class="product-link" data-link-id="{{ item.product.id }}">im hidden</a>
+
+        {% else %}
+            <a href="{{ path('cart_remove_all', {id: item.product.id}) }}" style="color: red">remove</a>
+        {% endif %}
     {% endfor %}
 </div>
+
+    <script src="{{ asset('/scripts/productRemove.js') }}"></script>
 {% endblock %}

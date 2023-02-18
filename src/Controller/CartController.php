@@ -47,7 +47,11 @@ class CartController extends AbstractController
 
         $product = $productRepository->find($id);
 
-        if (!empty($cart[$id]) || !$product) {
+        if (!empty($cart[$id]) || !$product || $x !== null) {
+
+            if(!isset($cart[$id])){
+                $cart[$id] = 0;
+            }
 
             if($product->getStock() < $cart[$id] + $x){
                 $cart[$id] = $product->getStock();
@@ -105,5 +109,12 @@ class CartController extends AbstractController
         $session = $request->getSession();
         $cart = $session->get('cart', []);
         dd($cart);
+    }
+
+    #[Route('/cart/clear', name: 'cart_clear')]
+    public function clear(Request $request){
+        $session = $request->getSession();
+        $session->set('cart', []);
+        return $this->redirectToRoute('cart_show');
     }
 }
