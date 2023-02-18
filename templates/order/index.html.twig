@@ -18,39 +18,44 @@
         img{
             width: 64px;
         }
+        table{
+            margin-bottom: 50px;
+        }
     </style>
 
     <h1>Order</h1>
 
-    <table>
+
         {% for order in user.orders %}
-        <thead>
-            <tr>
-                <th colspan="2">Order : {{ order.date |date('d-m-Y') }}</th>
-            </tr>
-        </thead>
-        <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-        </tr>
-            {% for orderProduct in order.orderProducts %}
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="4">Order : {{ order.date |date('d-m-Y') }}</th>
+                    </tr>
+                </thead>
                 <tr>
-                    <td>
-                        {{ orderProduct.product.name }}
-                        <img src="{{ asset('./uploads/products/'~orderProduct.product.pictureUrl) }}" alt="{{ orderProduct.product.name }}">
-                    </td>
-                    <td>{{ orderProduct.quantity }}</td>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total Price</th>
                 </tr>
-            {% endfor %}
+                    {% for orderProduct in order.orderProducts %}
+                        <tr>
+                            <td>
+                                {{ orderProduct.product.name }}
+                                <img src="{{ asset('./uploads/products/'~orderProduct.product.pictureUrl) }}" alt="{{ orderProduct.product.name }}">
+                            </td>
+                            <td>{{ orderProduct.quantity }}</td>
+                            <td>{{ orderProduct.product.price }} €</td>
+                            <td>{{ orderProduct.total }} €</td>
+                        </tr>
+                    {% endfor %}
+                    <tfoot>
+                        <tr>
+                            <th colspan="4">Total Price : {{ order.total }} €</th>
+                        </tr>
+                    </tfoot>
+            </table>
         {% endfor %}
-    </table>
-{#        {% for order in user.orders %}#}
-{#        {{ order.date |date('d-m-Y') }}#}
-{#            {% for orderProduct in order.orderProducts %}#}
-{#                {{ orderProduct.product.name }}#}
-{#                    x#}
-{#                {{ orderProduct.quantity }}#}
-{#                <hr>#}
-{#            {% endfor %}#}
-{#        {% endfor %}#}
+
 {% endblock %}

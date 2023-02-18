@@ -59,14 +59,24 @@ class AppFixtures extends Fixture
         $order = new Order();
         $order->setBuyer($users[0]);
         $order->setDate(new \DateTime());
+        $order->setTotal(rand(1, 500)+(rand(0, 10) / 10));
 
+        $orderTotal = 0;
         for ($i = 0; $i < 10; $i++) {
+
+            $currentProduct = $product[rand(0, count($product)-1)];
+            $quantity = rand(1, 10);
+
             $orderProduct = new OrderProduct();
             $orderProduct->setOrderReference($order);
-            $orderProduct->setQuantity(rand(1, 10));
-            $orderProduct->setProduct($product[rand(0, count($product)-1)]);
+            $orderProduct->setQuantity($quantity);
+            $orderProduct->setProduct($currentProduct);
+            $total = $currentProduct->getPrice() * $quantity;
+            $orderProduct->setTotal($total);
+            $orderTotal += $total;
             $manager->persist($orderProduct);
         }
+        $order->setTotal($orderTotal);
         $manager->persist($order);
         $manager->flush();
 
