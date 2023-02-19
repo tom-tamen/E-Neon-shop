@@ -33,6 +33,8 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/order, roles: ROLE_USER }
+        - { path: ^/order-validate, roles: ROLE_USER }
+
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

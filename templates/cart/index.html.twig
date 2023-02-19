@@ -26,6 +26,8 @@
             <a href="{{ path('cart_remove_all', {id: item.product.id}) }}" style="color: red">remove</a>
         {% endif %}
     {% endfor %}
+
+    <a href="{{ path('order_validate') }}">Buy</a>
 </div>
 
     <script src="{{ asset('/scripts/productRemove.js') }}"></script>

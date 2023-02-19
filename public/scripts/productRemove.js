@@ -10,7 +10,7 @@ document.querySelectorAll('.btn-remove').forEach(btn => {
                 allLinks.forEach(link => {
                     if (link.getAttribute('data-link-id') == productID) {
                         let url = link.getAttribute('href');
-                        
+
                         if (input.value < 1) {
                             url += '/'+1;
                         }else{
