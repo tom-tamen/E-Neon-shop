@@ -8,7 +8,7 @@
     <ul class="nav">
         <li class="scroll-to-section"><a href="{{ path('app_index') }}"><i class="fa-solid fa-house"></i> Home</a></li>
         <li class="submenu">
-            <a href="javascript:;">Categories</a>
+            <a href="javascript:;"><i class="fa-solid fa-book-open"></i> Categories</a>
             <ul>
                 {% for category in categories %}
                     <li><a href="{{ path('category_show', {'id': category.id}) }}">{{ category.name }}</a></li>
@@ -17,17 +17,17 @@
             </ul>
         </li>
 
-        <li class="scroll-to-section"><a href="{{ path('cart_show') }}">Cart</a></li>
+        <li class="scroll-to-section"><a href="{{ path('cart_show') }}"><i class="fa-solid fa-cart-shopping"></i> Cart</a></li>
 
         {% if app.user %}
-            <li><a href="{{ path('order_show_all') }}">Orders</a></li>
-            <li><a href="{{ path('app_logout') }}" style="color: #dc2626;">Log out</a></li>
+            <li><a href="{{ path('order_show_all') }}"><i class="fa-solid fa-file-lines"></i> Orders</a></li>
+            <li><a href="{{ path('app_logout') }}" style="color: #dc2626;"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a></li>
         {% else %}
-            <li><a href="{{ path('app_login') }}" style="color: #3b82f6;">Login</a></li>
+            <li><a href="{{ path('app_login') }}" style="color: #3b82f6;"><i class="fa-solid fa-user"></i> Login</a></li>
         {% endif %}
 
         {% if is_granted('ROLE_ADMIN') %}
-            <li class="scroll-to-section"><a href="{{path('admin')}}" style="color: #3b82f6;">Dashboard</a></li>
+            <li class="scroll-to-section"><a href="{{path('admin')}}" style="color: #3b82f6;"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
         {% endif %}
 
 

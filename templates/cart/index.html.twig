@@ -54,7 +54,10 @@
                                 {% if item.quantity > 1 %}
                                     <div>
                                         <a href="{{ path('cart_remove_x', {id: item.product.id}) }}" style="visibility: hidden" class="product-link" data-link-id="{{ item.product.id }}"></a>
-                                        <input type="number" class="remove-input" data-input-id="{{ item.product.id }}" style="width: 30px; text-align: center">
+{#                                        <input type="number" class="remove-input" data-input-id="{{ item.product.id }}" style="width: 30px; text-align: center">#}
+                                        <div class="quantity buttons_added">
+                                            <input type="button" value="-" class="minus" disabled><input type="number" data-input-id="{{ item.product.id }}" step="1" min="1" max="{{ item.quantity }}" name="quantity" value="1" title="Qty" class="remove-input input-text qty text quantity-product" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                                        </div>
                                         <a class="btn-remove" data-btn-id="{{ item.product.id }}" style="color: red; cursor: pointer"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                     </div>
                                 {% else %}
@@ -80,4 +83,5 @@
 
 
     <script src="{{ asset('/scripts/productRemove.js') }}"></script>
+
 {% endblock %}

@@ -27,7 +27,7 @@
                             </div>
                             <div class="right-content">
                                 <div class="quantity buttons_added">
-                                    <input type="button" value="-" class="minus" disabled><input id="quantity" type="number" step="1" min="1" max="{{ product.stock }}" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                                    <input type="button" value="-" class="minus" disabled><input id="quantity" type="number" step="1" min="1" max="{{ product.stock }}" name="quantity" value="1" title="Qty" class="input-text qty text quantity-product" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
                                 </div>
                             </div>
                         </div>
@@ -93,5 +93,4 @@
 
 
     <script src="{{ asset('scripts/productAdd.js') }}"></script>
-    <script src="{{ asset('scripts/counter.js') }}"></script>
 {% endblock %}

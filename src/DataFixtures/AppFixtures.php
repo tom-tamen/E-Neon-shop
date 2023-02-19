@@ -36,7 +36,7 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 10; $i++) {
             $category = new Category();
             $category->setName('Category ' . $i);
-            $category->setPictureUrl('nopicold.png');
+            $category->setPictureUrl('nopic.png');
 
             for($j = 0; $j < 20; $j++) {
                 $product = new Product();
@@ -44,7 +44,7 @@ class AppFixtures extends Fixture
                 $product->setPrice(rand(1, 500)+(rand(0, 10) / 10));
                 $product->setStock(rand(10, 100));
                 $product->setCategory($category);
-                $product->setPictureUrl('nopicold.png');
+                $product->setPictureUrl('nopic.png');
                 $product->setDescription('Product ' . $j .' from category '. $i .' Cupcake ipsum dolor sit amet candy canes icing candy canes tart. Brownie cupcake I love tart sugar plum. Caramels carrot cake jelly-o gingerbread sweet chocolate cake I love biscuit macaroon.');
                 $manager->persist($product);
             }

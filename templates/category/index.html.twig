@@ -29,19 +29,19 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-heading">
-                        <h2>Our Latest Products</h2>
+                        <h2>Our Latest Products </h2>
                         <span>Check out all of our products.</span>
                         <div class="mt-3">
                             <a href="{{ path('category_show_filter', {'id':category.id, 'filter':'asc'}) }}">
-                                Ascending price
+                                <i class="fa-solid fa-arrow-up-wide-short"></i> Ascending price
                             </a>
                             |
                             <a href="{{ path('category_show_filter', {'id':category.id, 'filter':'desc'}) }}">
-                                Descending price
+                                <i class="fa-solid fa-arrow-down-wide-short"></i> Descending price
                             </a>
                             |
                             <a href="{{ path('category_show', {'id':category.id}) }}">
-                                None
+                                <i class="fa-solid fa-arrows-rotate"></i> Reset
                             </a>
                         </div>
                     </div>
