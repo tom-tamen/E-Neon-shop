@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OrderController!{% endblock %}
+{% block title %}Order{% endblock %}
 
 {% block body %}
 
@@ -15,18 +15,47 @@
             padding: 5px;
         }
 
-        img{
+        .img-product{
             width: 64px;
         }
         table{
-            margin-bottom: 50px;
+            margin: 25px 0 25px 0;
+            width: 70%;
+
+        }
+
+        .main-section{
+            margin-top: 200px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            align-items: center;
+        }
+
+        .product-infos:nth-child(odd) {
+            background-color: #ede9fe;
+        }
+        thead{
+            background-color: #d8b4fe;
+        }
+        tfoot{
+            background-color: #fed7aa;
+        }
+        .empty-box{
+            width: 500px;
         }
     </style>
 
-    <h1>Order</h1>
 
+    <section class="main-section">
+        <h1>Your orders</h1>
 
-        {% for order in user.orders %}
+        {% if user.orders is empty %}
+            <p>You have no orders</p>
+            <img class="empty-box" src="{{ asset('images/empty-box.png') }}" alt="empty box">
+        {% endif %}
+        {% for order in user.orders|sort((a, b) => b.date <=> a.date) %}
             <table>
                 <thead>
                     <tr>
@@ -40,10 +69,10 @@
                     <th>Total Price</th>
                 </tr>
                     {% for orderProduct in order.orderProducts %}
-                        <tr>
+                        <tr class="product-infos">
                             <td>
                                 {{ orderProduct.product.name }}
-                                <img src="{{ asset('./uploads/products/'~orderProduct.product.pictureUrl) }}" alt="{{ orderProduct.product.name }}">
+                                <img class="img-product" src="{{ asset('./uploads/products/'~orderProduct.product.pictureUrl) }}" alt="{{ orderProduct.product.name }}">
                             </td>
                             <td>{{ orderProduct.quantity }}</td>
                             <td>{{ orderProduct.product.price }} €</td>
@@ -57,5 +86,8 @@
                     </tfoot>
             </table>
         {% endfor %}
+    </section>
+
+
 
 {% endblock %}

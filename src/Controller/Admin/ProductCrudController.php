@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -25,15 +26,16 @@ class ProductCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm()->hideOnIndex(),
             TextField::new('name'),
-            TextEditorField::new('description'),
+            TextareaField::new('description'),
             NumberField::new('price'),
             IntegerField::new('stock'),
             AssociationField::new('category'),
             ImageField::new('pictureUrl')
                 ->setUploadDir('public/uploads/products')
-                ->setBasePath('uploads/products')
+                ->setBasePath('uploads/products/')
                 ->setUploadedFileNamePattern('[slug]-[randomhash].[extension]')
                 ->setFormTypeOptions(['attr' => ['accept' => 'image/*']])
+
         ];
     }
 

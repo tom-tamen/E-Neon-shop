@@ -1,50 +1,97 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProductController!{% endblock %}
+{% block title %}{{ product.name}}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ product.name}}! ✅</h1>
-
-    {% if app.request.get("error") is defined %}
-        {% set error = app.request.get("error") %}
-        {% if error == "stock" %}
-            <p style="color: red">You reach the maximum quantity for this item</p>
-        {% endif %}
-    {% endif %}
-
-    <img src="{{ asset('uploads/products/'~product.pictureUrl) }}" alt="{{ product.name }}" style="width: 128px">
-    <div>
-        <h2>Description :</h2>
-        <p>{{ product.description }}</p>
-    </div>
-    <p>{{ product.price }} €</p>
-    <input id="quantity" type="number" min="1" max="{{ product.stock }}">
-    <button id="atc-btn">Add to cart</button>
-    <a id="add-to-cart" style="visibility: hidden" href="{{ path('cart_add_x', {'id': product.id}) }}">im hidden</a>
-    {#<a href="{{ path('cart_add', {'id': product.id}) }}">Add to cart</a>#}
-{#    <a href="{{ path('cart_add', {'id': product.id}) }}">Add to cart</a>#}
-    <hr>
-    <h3>This might interest you :</h3>
-    {% for otherProduct in product.category.products %}
-        {% if otherProduct.id != product.id %}
-            <a href="{{ path('product_show', {'id': otherProduct.id}) }}">
-                <h4>{{ otherProduct.name }}</h4>
-                <img src="{{ asset('uploads/products/'~otherProduct.pictureUrl) }}" alt="{{ otherProduct.name }}" style="width: 128px">
-                <p>{{ otherProduct.price }} €</p>
-            </a>
-                <a href="{{ path('cart_add', {'id': otherProduct.id}) }}">Add to cart</a>
-                <hr>
-        {% endif %}
 
 
-    {% endfor %}
-</div>
+
+    <!-- ***** Product Area Starts ***** -->
+    <section class="section" id="product" style="margin-top: 200px">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="left-images">
+                        <img src="{{ asset('uploads/products/'~product.pictureUrl) }}" alt="{{ product.name }}">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="right-content">
+                        <h4>{{ product.name }}</h4>
+                        <span class="price">${{ product.price }}</span>
+                        <h5>Description :</h5>
+                        <span>{{ product.description }}</span>
+                        <div class="quantity-content">
+                            <div class="left-content">
+                                <h6>No. of Orders</h6>
+                            </div>
+                            <div class="right-content">
+                                <div class="quantity buttons_added">
+                                    <input type="button" value="-" class="minus" disabled><input id="quantity" type="number" step="1" min="1" max="{{ product.stock }}" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="total">
+                            <h4 class="total-display">Total: ${{ product.price }}</h4>
+                            <div class="main-border-button" id="atc-btn"><a href="#">Add To Cart</a></div>
+                            <a id="add-to-cart" style="visibility: hidden" href="{{ path('cart_add_x', {'id': product.id}) }}">im hidden</a>
+                        </div>
+                        {% if app.request.get("error") is defined %}
+                            {% set error = app.request.get("error") %}
+                            {% if error == "stock" %}
+                                <p style="color: red">You reach the maximum quantity for this item</p>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Product Area Ends ***** -->
+
+    <section class="section" id="men">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-heading">
+                        <h2>This might interest you :</h2>
+                        <span>Discover products of the same category</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="men-item-carousel">
+                        <div class="owl-men-item owl-carousel">
+                            {% for otherProduct in product.category.products %}
+                                {% if otherProduct.id != product.id %}
+                                    <div class="item">
+                                        <div class="thumb">
+                                            <div class="hover-content">
+                                                <ul>
+                                                    <li><a href="{{ path('product_show', {'id': otherProduct.id}) }}"><i class="fa fa-eye"></i></a></li>
+                                                    <li><a href="{{ path('cart_add', {'id': otherProduct.id}) }}"><i class="fa fa-shopping-cart"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <img src="{{ asset('uploads/products/'~otherProduct.pictureUrl) }}" alt="{{ otherProduct.name }}">
+                                        </div>
+                                        <div class="down-content">
+                                            <h4>{{ otherProduct.name }}</h4>
+                                            <span>${{ otherProduct.price }}</span>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <script src="{{ asset('scripts/productAdd.js') }}"></script>
+    <script src="{{ asset('scripts/counter.js') }}"></script>
 {% endblock %}

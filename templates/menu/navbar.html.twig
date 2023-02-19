@@ -1,0 +1,40 @@
+<nav class="main-nav">
+    <!-- ***** Logo Start ***** -->
+    <a href="{{ path('app_index') }}" class="logo">
+        <img src="{{ asset('images/Logo-e-neon.png') }}" style="height: 80px">
+    </a>
+    <!-- ***** Logo End ***** -->
+    <!-- ***** Menu Start ***** -->
+    <ul class="nav">
+        <li class="scroll-to-section"><a href="{{ path('app_index') }}"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li class="submenu">
+            <a href="javascript:;">Categories</a>
+            <ul>
+                {% for category in categories %}
+                    <li><a href="{{ path('category_show', {'id': category.id}) }}">{{ category.name }}</a></li>
+                {% endfor %}
+                <li><a href="{{ path('app_index') }}">See All</a></li>
+            </ul>
+        </li>
+
+        <li class="scroll-to-section"><a href="{{ path('cart_show') }}">Cart</a></li>
+
+        {% if app.user %}
+            <li><a href="{{ path('order_show_all') }}">Orders</a></li>
+            <li><a href="{{ path('app_logout') }}" style="color: #dc2626;">Log out</a></li>
+        {% else %}
+            <li><a href="{{ path('app_login') }}" style="color: #3b82f6;">Login</a></li>
+        {% endif %}
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="scroll-to-section"><a href="{{path('admin')}}" style="color: #3b82f6;">Dashboard</a></li>
+        {% endif %}
+
+
+
+    </ul>
+    <a class='menu-trigger'>
+        <span>Menu</span>
+    </a>
+    <!-- ***** Menu End ***** -->
+</nav>

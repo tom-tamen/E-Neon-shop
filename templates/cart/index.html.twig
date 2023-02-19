@@ -1,34 +1,83 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CartController!{% endblock %}
+{% block title %}Cart{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Your cart</h1>
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
 
-    {% if cart is empty %}
-        <p>Your cart is empty</p>
-    {% endif %}
-    {% for item in cart %}
-        <h2>{{ item.product.name }} x {{ item.quantity }}</h2>
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        .cart-section{
+            margin-top: 100px
+        }
+    </style>
 
-        {% if item.quantity > 1 %}
-            <input type="number" class="remove-input" data-input-id="{{ item.product.id }}">
-            <button class="btn-remove" data-btn-id="{{ item.product.id }}">remove</button>
-            <a href="{{ path('cart_remove_x', {id: item.product.id}) }}" style="visibility: hidden" class="product-link" data-link-id="{{ item.product.id }}">im hidden</a>
+    <section class="h-100 cart-section">
+        <div class="container h-100 py-5">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-10">
 
-        {% else %}
-            <a href="{{ path('cart_remove_all', {id: item.product.id}) }}" style="color: red">remove</a>
-        {% endif %}
-    {% endfor %}
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
+                    </div>
 
-    <a href="{{ path('order_validate') }}">Buy</a>
-</div>
+                    {% if cart is empty %}
+                        <img src="{{ asset('images/empty-cart.png') }}" alt="empty cart">
+                    {% endif %}
+
+                    {% for item in cart %}
+
+
+                    <div class="card rounded-3 mb-4">
+                        <div class="card-body p-4">
+                            <div class="row d-flex justify-content-between align-items-center">
+                                <div class="col-md-2 col-lg-2 col-xl-2">
+                                    <img
+                                            src="{{ asset('/uploads/products/' ~ item.product.pictureUrl) }}"
+                                            class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-xl-3">
+                                    <p class="lead fw-normal mb-2">{{ item.product.name }}</p>
+                                    <p><span class="text-muted">Quantity : </span>{{ item.quantity }}</p>
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                    <h5> ${{ item.product.price*item.quantity }}</h5>
+                                </div>
+                                {% if item.quantity > 1 %}
+                                    <div>
+                                        <a href="{{ path('cart_remove_x', {id: item.product.id}) }}" style="visibility: hidden" class="product-link" data-link-id="{{ item.product.id }}"></a>
+                                        <input type="number" class="remove-input" data-input-id="{{ item.product.id }}" style="width: 30px; text-align: center">
+                                        <a class="btn-remove" data-btn-id="{{ item.product.id }}" style="color: red; cursor: pointer"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    </div>
+                                {% else %}
+                                    <a href="{{ path('cart_remove_all', {id: item.product.id}) }}" style="color: red"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    {% if cart is not empty %}
+                        <div class="card">
+                            <div class="card-body">
+                                <a href="{{ path('order_validate') }}" class="btn btn-warning btn-block btn-lg">Proceed to Pay</a>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <script src="{{ asset('/scripts/productRemove.js') }}"></script>
 {% endblock %}

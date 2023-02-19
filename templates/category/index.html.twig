@@ -1,39 +1,79 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CategoryController!{% endblock %}
+{% block title %}{{category.name}}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>{{ category.name }}! ✅</h1>
-
-    <a href="{{ path('category_show_filter', {'id':category.id, 'filter':'asc'}) }}">
-        Ascending price
-    </a>
-    |
-    <a href="{{ path('category_show_filter', {'id':category.id, 'filter':'desc'}) }}">
-        Descending price
-    </a>
-    |
-    <a href="{{ path('category_show', {'id':category.id}) }}">
-        None
-    </a>
 
 
 
-    {%for product in products%}
-        <a href="{{ path('product_show', {id:product.id}) }}">
-            <h2>{{ product.name }}</h2>
-            <img src="{{ asset('uploads/products/'~product.pictureUrl) }}" alt="{{ product.name }}" style="width: 128px">
-            <p>{{ product.price }} €</p>
-        </a>
-        <a href="{{ path('cart_add', {'id': product.id}) }}">Add to cart</a>
-        <hr>
 
-    {% endfor %}
-</div>
+    <!-- ***** Main Banner Area Start ***** -->
+    <div class="page-heading" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-content">
+                        <h2 class="neonText">{{ category.name }}</h2>
+                        <span class="neonText1">Search in the category {{ category.name }} and find what you need</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Main Banner Area End ***** -->
+
+
+    <!-- ***** Products Area Starts ***** -->
+    <section class="section" id="products">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-heading">
+                        <h2>Our Latest Products</h2>
+                        <span>Check out all of our products.</span>
+                        <div class="mt-3">
+                            <a href="{{ path('category_show_filter', {'id':category.id, 'filter':'asc'}) }}">
+                                Ascending price
+                            </a>
+                            |
+                            <a href="{{ path('category_show_filter', {'id':category.id, 'filter':'desc'}) }}">
+                                Descending price
+                            </a>
+                            |
+                            <a href="{{ path('category_show', {'id':category.id}) }}">
+                                None
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                {%for product in products%}
+                <div class="col-lg-4">
+                    <div class="item">
+                        <div class="thumb">
+                            <div class="hover-content">
+                                <ul>
+                                    <li><a href="{{ path('product_show', {id:product.id}) }}"><i class="fa fa-eye"></i></a></li>
+                                    <li><a href="{{ path('cart_add', {'id': product.id}) }}"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
+                            </div>
+                            <img src="{{ asset('uploads/products/'~product.pictureUrl) }}" alt="{{ product.name }}">
+                        </div>
+                        <div class="down-content">
+                            <h4>{{ product.name }}</h4>
+                            <span>${{ product.price }}</span>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+    </section>
+    <!-- ***** Products Area Ends ***** -->
+
+
 {% endblock %}

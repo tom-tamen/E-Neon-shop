@@ -1,0 +1,41 @@
+.neonText {
+    animation: pulsate 2.5s infinite alternate;
+    color: #fff;
+    -webkit-text-stroke: 1px #00b4ff;
+}
+
+.neonText1 {
+    text-shadow:
+            0 0 4px #fff,
+            0 0 10px #fff,
+            0 0 20px #ff00fc,
+            0 0 40px #ff00fc,
+            0 0 80px #ff00fc,
+            0 0 90px #ff00fc,
+            0 0 100px #ff00fc,
+            0 0 150px #ff00fc;
+    color: #fff;
+}
+
+@keyframes pulsate {
+    100% {
+        /* Larger blur radius */
+        text-shadow:
+                0 0 4px #fff,
+                0 0 40px #00b4ff,
+                0 0 80px #00b4ff,
+                0 0 90px #00b4ff,
+                0 0 100px #00b4ff,
+                0 0 150px #00b4ff;
+    }
+    0% {
+        /* A slightly smaller blur radius */
+        text-shadow:
+                0 0 4px #fff,
+                0 0 38px #00b4ff,
+                0 0 73px #00b4ff,
+                0 0 80px #00b4ff,
+                0 0 94px #00b4ff,
+                0 0 140px #00b4ff;
+    }
+}
